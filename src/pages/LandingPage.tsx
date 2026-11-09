@@ -2,7 +2,7 @@ import DiagonalPhone from '../components/DiagonalPhone';
 import BlackFeatureSection from '../components/BlackFeatureSection';
 import FaqSection from '../components/FaqSection';
 import SiteFooter from '../components/SiteFooter';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
 import '../styles/landing.css';
 import logo from '../assets/images/agenda_barber_logo_square_transparent.png';
 
@@ -26,40 +26,76 @@ export default function App() {
     };
   }, []);
 
+  const navigate = (
+    event: ReactMouseEvent<HTMLAnchorElement>,
+    anchorId: string,
+    tab?: 'agendamento' | 'financeiro',
+  ) => {
+    event.preventDefault();
+    setMenuOpen(false);
+    if (tab) setFeatureTab(tab);
+    const targetId = anchorId === 'agendamentos' || anchorId === 'financas' ? 'secao-branca' : anchorId;
+    const section = document.getElementById(targetId);
+    if (!section) return;
+    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+    // Reveal the white section's sticky phone/cards when using the menu.
+    const offset = targetId === 'secao-branca' ? Math.min(window.innerHeight * 0.18, 140) : 0;
+    window.history.pushState(null, '', '#' + anchorId);
+    window.scrollTo({
+      top: Math.max(0, sectionTop + offset),
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+    });
+  };
+
+
+  // Keep Agendamento / Financeiro in sync with deep links and back/forward.
+  useEffect(() => {
+    const syncFeatureHash = () => {
+      if (window.location.hash === '#financas') setFeatureTab('financeiro');
+      if (window.location.hash === '#agendamentos') setFeatureTab('agendamento');
+    };
+    syncFeatureHash();
+    window.addEventListener('hashchange', syncFeatureHash);
+    window.addEventListener('popstate', syncFeatureHash);
+    return () => {
+      window.removeEventListener('hashchange', syncFeatureHash);
+      window.removeEventListener('popstate', syncFeatureHash);
+    };
+  }, []);
+
   return (
     <main className="landing" id="home" aria-label="Agenda Barber">
       <div className="landing-first-screen">
       <header className="brand-header">
-        <div className="brand">
-          <img className="brand-logo" src={logo} alt="Logo AB" />
+        <a className="brand" href="#home" onClick={(event) => navigate(event, 'home')}
+          aria-label="Agenda Barber, voltar ao início">
+          <img className="brand-logo" src={logo} alt="" />
           <div className="brand-name">
             <span className="agenda">Agenda</span><span className="barber">Barber</span>
           </div>
-        </div>
+        </a>
         <nav className="main-nav" aria-label="Navegação principal">
-          <a className="nav-link nav-home" href="#home">Home</a>
+          <a className="nav-link nav-home" href="#home" onClick={(event) => navigate(event, 'home')}>Home</a>
           <div className="nav-dropdown" ref={menuRef}>
-            <button
-              className="nav-link nav-dropdown-button"
-              type="button"
-              aria-expanded={menuOpen}
-              aria-controls="funcionalidades-menu"
-              onClick={() => setMenuOpen((value) => !value)}
-            >
-              Funcionalidades
+            <a className="nav-link nav-dropdown-label" href="#secao-branca"
+              onClick={(event) => navigate(event, 'secao-branca')}>Funcionalidades</a>
+            <button className="nav-dropdown-toggle" type="button"
+              aria-label="Mostrar opções de funcionalidades"
+              aria-expanded={menuOpen} aria-controls="funcionalidades-menu"
+              onClick={() => setMenuOpen((value) => !value)}>
               <svg className={menuOpen ? 'chevron is-open' : 'chevron'} width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
             {menuOpen && (
               <div className="nav-dropdown-menu" id="funcionalidades-menu">
-                <a href="#agendamentos" onClick={() => setMenuOpen(false)}>Agendamentos</a>
-                <a href="#financas" onClick={() => setMenuOpen(false)}>Finanças</a>
+                <a href="#agendamentos" onClick={(event) => navigate(event, 'agendamentos', 'agendamento')}>Agendamentos</a>
+                <a href="#financas" onClick={(event) => navigate(event, 'financas', 'financeiro')}>Finanças</a>
               </div>
             )}
           </div>
-          <a className="nav-link" href="#solucoes">Soluções</a>
-          <a className="nav-link" href="#perguntas">Perguntas</a>
+          <a className="nav-link" href="#secao-preta-final" onClick={(event) => navigate(event, 'secao-preta-final')}>Soluções</a>
+          <a className="nav-link" href="#perguntas" onClick={(event) => navigate(event, 'perguntas')}>Perguntas</a>
         </nav>
         <div className="header-actions" aria-label="Acoes do aplicativo">
           <a className="cta-button cta-download" href="/downloads/Agenda-Barber-1.0.0.apk" download="Agenda-Barber-1.0.0.apk">Baixar APP</a>
@@ -127,6 +163,8 @@ export default function App() {
         </div>
       </section>
       <section className="landing-white-section" id="secao-branca" aria-labelledby={featureTab === 'agendamento' ? 'white-feature-title-agendamento' : 'white-feature-title-financeiro'} data-feature={featureTab}>
+        <span className="feature-route-anchor" id="agendamentos" aria-hidden="true" />
+        <span className="feature-route-anchor" id="financas" aria-hidden="true" />
         <div className="white-feature-sticky">
           <div className="white-feature-copy">
             <p className="white-feature-count"><strong>FUNCIONALIDADES AGENDA BARBER</strong></p>

@@ -503,3 +503,36 @@
 @media (prefers-reduced-motion:reduce) {
  .white-feature-panel, .white-feature-copy { transition: none; }
 }
+
+/* Navigation: click the label to jump, the chevron to open feature choices. */
+.brand-header .brand { text-decoration: none; color: inherit; }
+.brand-header .brand:hover .brand-name { opacity: .86; }
+.brand-header .brand:focus-visible,
+.main-nav .nav-dropdown-toggle:focus-visible {
+  outline: 2px solid #b58a40;
+  outline-offset: 3px;
+  border-radius: 5px;
+}
+.main-nav .nav-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  min-height: 36px;
+  padding: 0;
+  margin-left: -2px;
+  border: 0;
+  color: #000;
+  background: transparent;
+  cursor: pointer;
+}
+.main-nav .nav-link:hover,
+.main-nav .nav-dropdown-toggle:hover { color: #b58a40; opacity: 1; }
+.landing-white-section .feature-route-anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
