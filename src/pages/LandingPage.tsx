@@ -43,7 +43,7 @@ export default function App() {
     window.history.pushState(null, '', '#' + anchorId);
     window.scrollTo({
       top: Math.max(0, sectionTop + offset),
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+      behavior: 'instant',
     });
   };
 
