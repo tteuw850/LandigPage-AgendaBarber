@@ -1,0 +1,192 @@
+/* Agenda Barber — rodapé institucional. */
+.landing .site-footer {
+  position: relative;
+  z-index: 35;
+  overflow: hidden;
+  background: #0b0b0c;
+  color: #f6f4f0;
+  font-family: Manrope, Inter, system-ui, sans-serif;
+}
+.landing .site-footer::before {
+  content: '';
+  position: absolute;
+  top: -270px;
+  right: -160px;
+  width: 680px;
+  height: 660px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(185,137,66,.105) 0%, rgba(185,137,66,0) 72%);
+  pointer-events: none;
+}
+.site-footer-container {
+  position: relative;
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 0 clamp(24px,6vw,112px);
+}
+.site-footer-accent {
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, #d4ad68, rgba(204,153,74,.4) 45%, rgba(204,153,74,0));
+}
+.site-footer-highlight {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 54px;
+  padding: clamp(55px,6.9vw,105px) 0 clamp(48px,5.6vw,82px);
+}
+.site-footer-headline { max-width: 820px; }
+.site-footer-eyebrow {
+  display: block;
+  margin-bottom: 18px;
+  color: #caa05e;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .16em;
+}
+.site-footer-headline h2 {
+  margin: 0;
+  max-width: 850px;
+  font-family: Manrope, Inter, system-ui, sans-serif;
+  font-weight: 750;
+  font-size: clamp(39px, 4.6vw, 76px);
+  letter-spacing: -.065em;
+  line-height: 1.13;
+}
+.site-footer-headline h2 em {
+  font-family: 'Instrument Serif', Georgia, serif;
+  color: #c2954e;
+  font-weight: 400;
+  letter-spacing: -.035em;
+}
+.site-footer-headline p {
+  max-width: 590px;
+  margin: 22px 0 0;
+  color: #a9a6a2;
+  font-size: clamp(13px,.98vw,16px);
+  line-height: 1.8;
+}
+.site-footer-actions {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 12px;
+  padding-bottom: 5px;
+}
+.site-footer-actions a {
+  min-height: 49px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 13px 20px;
+  border: 1px solid #cba25d;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.site-footer-actions a:hover { transform: translateY(-2px); }
+.site-footer-actions a span { font-size: 18px; line-height: 1; }
+.site-footer-download { background: #d3ac68; color: #17120c; }
+.site-footer-download:hover { background: #ebc781; }
+.site-footer-signup { background: transparent; color: #edd4ac; }
+.site-footer-signup:hover { background: rgba(210,165,91,.1); }
+.site-footer-divider { height: 1px; background: rgba(218,207,189,.16); }
+.site-footer-columns {
+  display: grid;
+  grid-template-columns: minmax(0,1.4fr) minmax(170px,.67fr) minmax(200px,.75fr);
+  column-gap: clamp(40px,8vw,132px);
+  row-gap: 30px;
+  padding: 53px 0 60px;
+}
+.site-footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  color: #f7f5f2;
+  text-decoration: none;
+}
+.site-footer-brand img { width: 44px; height: 44px; display: block; object-fit: contain; border-radius: 9px; }
+.site-footer-brand span { font-size: 24px; font-weight: 750; letter-spacing: -.06em; white-space: nowrap; }
+.site-footer-brand strong { color: #c99e57; font-weight: 750; }
+.site-footer-brand-column p {
+  max-width: 290px;
+  margin: 16px 0 0;
+  color: #96928c;
+  font-size: 13px;
+  line-height: 1.75;
+}
+.site-footer-nav, .site-footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.site-footer-nav h3, .site-footer-links h3 {
+  margin: 0 0 11px;
+  color: #d8ae6a;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+.site-footer-nav a, .site-footer-links a, .site-footer-bottom a {
+  color: #aaa7a2;
+  font-size: 13px;
+  line-height: 1.45;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.site-footer-nav a:hover, .site-footer-links a:hover, .site-footer-bottom a:hover { color: #e8b973; }
+.site-footer-links > span { color: #77736f; font-size: 11px; margin-top: 3px; }
+.site-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  border-top: 1px solid rgba(218,207,189,.13);
+  padding: 24px 0 29px;
+  color: #77736f;
+  font-size: 11px;
+}
+.site-footer-bottom a { font-size: 11px; }
+.site-footer-bottom a span { padding-left: 5px; color: #caa05e; }
+.site-footer a:focus-visible {
+  outline: 2px solid #d2a863;
+  outline-offset: 5px;
+  border-radius: 3px;
+}
+
+@media (max-width: 1120px) {
+ .site-footer-highlight { align-items: flex-start; flex-direction: column; gap: 26px; }
+ .site-footer-actions { flex-wrap: wrap; }
+ .site-footer-columns { column-gap: 52px; }
+}
+@media (max-width: 700px) {
+ .site-footer-container { padding-inline: 22px; }
+ .site-footer-highlight { padding-block: 62px 53px; gap: 26px; }
+ .site-footer-headline h2 { font-size: clamp(38px, 8.5vw, 53px); }
+ .site-footer-headline p { margin-top: 17px; font-size: 13px; }
+ .site-footer-actions { width: 100%; }
+ .site-footer-actions a { flex: 1 1 150px; min-height: 48px; }
+ .site-footer-columns { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 36px 25px; padding-block: 41px 46px; }
+ .site-footer-brand-column { grid-column: 1 / -1; }
+ .site-footer-bottom { align-items: flex-start; }
+}
+@media (max-width: 390px) {
+ .site-footer-container { padding-inline: 18px; }
+ .site-footer-headline h2 { font-size: 37px; }
+ .site-footer-eyebrow { font-size: 9px; }
+ .site-footer-actions { gap: 9px; }
+ .site-footer-actions a { flex-basis: 100%; }
+ .site-footer-nav a, .site-footer-links a { font-size: 12px; }
+ .site-footer-brand span { font-size: 22px; }
+ .site-footer-bottom { flex-direction: column; gap: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .site-footer a { transition: none !important; }
+ .site-footer-actions a:hover { transform: none; }
+}
